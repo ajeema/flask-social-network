@@ -6,6 +6,7 @@ from peewee import *
 
 DATABASE = SqliteDatabase('social.db')
 
+import models
 
 class User(UserMixin, Model):
 	username = CharField(unique = True)
@@ -41,8 +42,8 @@ class User(UserMixin, Model):
 class Post(Model):
 	timestamp = DateTimeField(default = datetime.datetime.now)
 	user = ForeignKeyField(
-			rel_model=User,
-			related_name='posts'
+			User,
+			backref='posts'
 	)
 	content = TextField()
 
