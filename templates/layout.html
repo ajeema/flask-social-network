@@ -28,26 +28,28 @@
             </div>
 
             <div class="grid-33">
-
-                <h1>Hello {% if current_user.is_authenticated() %} {{ current_user.username }}{% endif %}!</h1>
+                
+                <!-- Say Hi -->
+                <h1>Hello{% if current_user.is_authenticated() %} {{ current_user.username }}{% endif %}!</h1>
 
             </div>
 
             <div class="grid-33">
-
+                
+                <!-- Log in/Log out -->
                 {% if current_user.is_authenticated() %}
-                <a href="{{ url_for('logout') }}" class="icon-power" title="Log Out"></a>
+                <a href="{{ url_for('logout') }}" class="icon-power" title="Log out"></a>
                 {% else %}
-                <a href="{{ url_for('login') }}" class="icon-power" title="Log In"></a>
+                <a href="{{ url_for('login') }}" class="icon-power" title="Log in"></a>
                 <a href="{{ url_for('register') }}" class="icon-profile" title="Register"></a>
                 {% endif %}
-
+                
             </div>
 
           </div>
 
         </header>
-
+        
         <!-- Flash messages -->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
@@ -64,9 +66,11 @@
             <nav>
 
               <a href="{{ url_for('index') }}">All</a>
-                {% if current_user.is_authenticated() %}}
-                <a href="{{ url_for('post')}}" class=new">Create New Post</a>
-                   {% endif %}
+              
+                {% if current_user.is_authenticated() %}
+                <a href="{{ url_for('stream', username=current_user.username) }}">Following</a>
+                <a href="{{ url_for('post') }}" class="new">Create New Post</a>
+                {% endif %}
 
             </nav>
 
